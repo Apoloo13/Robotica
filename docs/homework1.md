@@ -9,7 +9,7 @@
 ## 1) Humanoid Robots (Bipedal)
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Atlas_robot_2023.jpg" width="420">
+  <img src="../recursos/imgs/atlas.jpg" width="420">
 </p>
 
 - **Boston Dynamics — Atlas**
@@ -24,17 +24,13 @@
 
 ## 2) Quadruped Robots (Four-legged)
 
-<p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Boston_Dynamics_Spot.jpg" width="420">
-</p>
-
 - **Boston Dynamics — Spot**
   - **Morphology:** Quadruped
   - **Key idea:** Stability and mobility on uneven terrain
   - **Typical applications:** Industrial inspection, surveillance, mapping
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/ANYmal_quadruped_robot.jpg" width="420">
+  <img src="../recursos/imgs/spot.jpg" width="420">
 </p>
 
 - **ANYbotics — ANYmal**
@@ -47,7 +43,7 @@
 ## 3) Wheeled Ground Robots (UGVs / AMRs)
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Husky_UGV_Clearpath.jpg" width="420">
+  <img src="../recursos/imgs/husky.jpg" width="420">
 </p>
 
 - **Clearpath Robotics — Husky UGV**
@@ -56,7 +52,7 @@
   - **Typical applications:** Outdoor robotics research, autonomy testing
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Roomba_980.jpg" width="300">
+  <img src="../recursos/imgs/roomba.jpg" width="300">
 </p>
 
 - **iRobot — Roomba**
@@ -72,7 +68,7 @@
 ## 4) Aerial Robots (Drones / Multirotors)
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/DJI_Matrice_300_RTK.jpg" width="420">
+  <img src="../recursos/imgs/dji.jpg" width="420">
 </p>
 
 - **DJI — Matrice Series**
@@ -85,7 +81,7 @@
 ## 5) Underwater Robots (AUV / ROV)
 
 <p align="center">
-  <img src="https://www.eelume.com/wp-content/uploads/2020/06/eelume_robot.jpg" width="420">
+  <img src="../recursos/imgs/snake.jpg" width="420">
 </p>
 
 - **Eelume — Snake-like Underwater Robot**
@@ -101,7 +97,7 @@
 ## 6) Soft Robots (Soft Robotics)
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Octobot_soft_robot.jpg" width="350">
+  <img src="../recursos/imgs/octobot.jpg" width="350">
 </p>
 
 - **Harvard — Octobot**
@@ -117,7 +113,7 @@
 ## 7) Snake Robots (Hyper-redundant Robots)
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/CMU_Snake_Robot.jpg" width="420">
+  <img src="../recursos/imgs/snakebot.jpg" width="420">
 </p>
 
 - **Carnegie Mellon University — Snakebot**
@@ -130,7 +126,7 @@
 ## 8) Industrial Robotic Arms (Serial Manipulators)
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Universal_Robots_UR5.jpg" width="350">
+  <img src="../recursos/imgs/ur5.jpg" width="350">
 </p>
 
 - **Universal Robots — UR5**
@@ -143,7 +139,7 @@
 ## 9) Parallel Robots (Delta Morphology)
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/ABB_IRB_360_FlexPicker.jpg" width="350">
+  <img src="../recursos/imgs/flexpicker.jpg" width="350">
 </p>
 
 - **ABB — IRB 360 FlexPicker**
@@ -156,7 +152,7 @@
 ## 10) Swarm Robots
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Kilobot_swarm.jpg" width="420">
+  <img src="../recursos/imgs/kilobots.jpg" width="420">
 </p>
 
 - **Harvard — Kilobots**
