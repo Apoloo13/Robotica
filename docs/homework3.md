@@ -102,13 +102,13 @@ disp(T_0_N);
 ### Original problem image
 
 <p align="center">
-  <img src="../recursos/imgs/homework3/imagen1.jpg" width="650">
+  <img src="recursos/imgs/homework3/imagen1.jpg" width="650">
 </p>
 
 ### Result (image of planes, origins, axis, links)
 
 <p align="center">
-  <img src="../recursos/imgs/homework3/imagen2.jpg" width="650">
+  <img src="recursos/imgs/homework3/imagen2.jpg" width="650">
 </p>
 
 ### Data table (image)
