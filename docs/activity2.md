@@ -66,13 +66,9 @@ Important:
 
 ## 5. Diagram and evidence placeholders (images)
 
-<p align="center">
-  <img src="recursos/imgs/activity2/diag1.png" width="650">
-</p>
+![Diagrama de flujo de Git](recursos/imgs/activity2/diag1.jpg)
 
-<p align="center">
-  <img src="recursos/imgs/activity2/diag2.png" width="650">
-</p>
+![Diagrama de flujo de Git](recursos/imgs/activity2/diag2.jpg)
 
 ---
 
@@ -249,9 +245,7 @@ source ~/first_work-/src/install/setup.bash
 ros2 run my_first_robot_package add_two_ints_server
 ```
 
-<p align="center">
-  <img src="recursos/imgs/activity2/ter1.png" width="650">
-</p>
+![Diagrama de flujo de Git](recursos/imgs/activity2/ter1.jpg)
 
 ### 9.3 Run the client (Terminal B)
 
@@ -260,9 +254,7 @@ source ~/first_work-/src/install/setup.bash
 ros2 run my_first_robot_package add_two_ints_client
 ```
 
-<p align="center">
-  <img src="recursos/imgs/activity2/ter2.png" width="650">
-</p>
+![Diagrama de flujo de Git](recursos/imgs/activity2/ter2.jpg)
 
 Expected behavior:
 - The server prints log lines each time it receives a request.
