@@ -115,8 +115,12 @@ class NumberPublisherNode(Node):
     def __init__(self):
         super().__init__("number_publisher")
 
-        self._pub = self.create_publisher(Int64, "number", 10)
-        self._timer = self.create_timer(1.0, self.publish_number)
+        # Parameter (this makes parameter infrastructure obvious in rqt_graph)
+        self.declare_parameter("time_period", 1.0)
+        self._time_period = float(self.get_parameter("time_period").value)
+
+        self._pub = self.create_publisher(Int64, "/number", 10)
+        self._timer = self.create_timer(self._time_period, self.publish_number)
 
         self._number = 0
         self.get_logger().info("number_publisher started (publishing on /number)")
@@ -179,24 +183,26 @@ class NumberCounterNode(Node):
     def __init__(self):
         super().__init__("number_counter")
 
-        self._counter = 0
+        # Parameter (helps show /parameter_events like in the diagram)
+        self.declare_parameter("counter_initial_value", 0)
+        self._counter = int(self.get_parameter("counter_initial_value").value)
 
         # Subscriber: /number
         self._sub = self.create_subscription(
             Int64,
-            "number",
+            "/number",
             self.callback_number,
             10
         )
 
-        # Publisher: /number_count
+        # Publisher: /number_count (only this node publishes it)
         self._pub = self.create_publisher(
             Int64,
-            "number_count",
+            "/number_count",
             10
         )
 
-        # Service server: /reset_counter
+        # Service server: /reset_counter (SetBool)
         self._srv = self.create_service(
             SetBool,
             "/reset_counter",
