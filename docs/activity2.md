@@ -1,25 +1,38 @@
-# ROS 2 Services (AddTwoInts) | Client + Server
+# ROS 2 Topics + Services (Reset Counter) | Publisher + Counter + SetBool Service
 
 ## 1. Overview
 
-This activity implements a ROS 2 service using `rclpy` and the interface `example_interfaces/srv/AddTwoInts`.
-A service follows a request/response model:
+This activity extends a ROS 2 Topics example by adding a ROS 2 Service using `rclpy`.
 
-- A client sends a request (two integers: `a`, `b`).
-- A server computes the result.
-- The server returns a response (the integer `sum`).
+You start with a Topics pipeline:
 
-Service name used in this activity: `/add_two_ints`  
-Service type used in this activity: `example_interfaces/srv/AddTwoInts`
+- A publisher node sends integers on `/number` using `example_interfaces/msg/Int64`.
+- A counter node subscribes to `/number`, accumulates the values, and publishes the running total on `/number_count` using `example_interfaces/msg/Int64`.
+
+Then you add a service inside the counter node:
+
+Service name used in this activity: `/reset_counter`  
+Service type used in this activity: `example_interfaces/srv/SetBool`
+
+Service behavior:
+- The client calls `/reset_counter` with a boolean request field `data`.
+- If `data` is `true`, the counter value is reset to `0`.
+- If `data` is `false`, the counter value is not modified.
+
+Topics used in this activity:
+- `/number` (type: `example_interfaces/msg/Int64`)
+- `/number_count` (type: `example_interfaces/msg/Int64`)
 
 ---
 
 ## 2. Objectives
 
-- Create a Service Server node that provides `/add_two_ints`.
-- Create a Service Client node that calls `/add_two_ints` and prints results.
-- Build and run both nodes from a ROS 2 Python package.
-- Validate the service using `ros2 service call`.
+- Implement a publisher node that publishes an `Int64` number on `/number`.
+- Implement a counter node that subscribes to `/number`, accumulates the values, and publishes on `/number_count`.
+- Add a service server inside the counter node:
+  - Name: `/reset_counter`
+  - Type: `example_interfaces/srv/SetBool`
+- Validate the service from the command line using `ros2 service call`.
 - Collect evidence (diagrams and terminal outputs) for the report.
 
 ---
@@ -31,15 +44,21 @@ Software:
 - Python 3
 - Package dependency: `example_interfaces`
 
-Useful interface inspection command:
+Useful interface inspection commands:
 
 ```bash
-ros2 interface show example_interfaces/srv/AddTwoInts
+ros2 interface show example_interfaces/msg/Int64
+ros2 interface show example_interfaces/srv/SetBool
 ```
 
 Expected fields (summary):
-- Request: `int64 a`, `int64 b`
-- Response: `int64 sum`
+
+`example_interfaces/msg/Int64`
+- Message: `int64 data`
+
+`example_interfaces/srv/SetBool`
+- Request: `bool data`
+- Response: `bool success`, `string message`
 
 ---
 
@@ -54,8 +73,8 @@ my_first_robot_package/
 ├─ setup.cfg
 └─ my_first_robot_package/
    ├─ __init__.py
-   ├─ add_two_ints_server.py
-   └─ add_two_ints_client.py
+   ├─ number_publisher.py
+   └─ number_counter.py
 ```
 
 Important:
@@ -66,69 +85,56 @@ Important:
 
 ## 5. Diagram and evidence placeholders (images)
 
-![Diagrama de flujo de Git](recursos/imgs/activity2/diag1.jpg)
+![Topics pipeline diagram](recursos/imgs/activity2/diag1.jpg)
 
-![Diagrama de flujo de Git](recursos/imgs/activity2/diag2.jpg)
+![Topics + service graph diagram](recursos/imgs/activity2/diag2.jpg)
 
 ---
 
-## 6. Service Server node
+## 6. Publisher node
 
-File: `my_first_robot_package/add_two_ints_server.py`
+File: `my_first_robot_package/number_publisher.py`
 
 ### 6.1 Purpose
 
-The server node:
-- Creates a service named `add_two_ints` (visible as `/add_two_ints`).
-- Receives a request containing `a` and `b`.
-- Computes `sum = a + b`.
-- Returns the result in the response.
+The publisher node:
+- Creates a publisher on topic `/number`.
+- Publishes an `Int64` message periodically (for example every 1 second).
+- Increments the number each time it publishes.
 
-### 6.2 Code (server)
+### 6.2 Code (publisher)
 
 ```python
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
+from example_interfaces.msg import Int64
 
-from example_interfaces.srv import AddTwoInts
 
-
-class AddTwoIntsServerNode(Node):
+class NumberPublisherNode(Node):
     def __init__(self):
-        super().__init__("add_two_ints_server")
+        super().__init__("number_publisher")
 
-        # Create the service server: (type, service_name, callback)
-        self._server = self.create_service(
-            AddTwoInts,
-            "add_two_ints",  # service name (will appear as /add_two_ints)
-            self.callback_add_two_ints,
-        )
+        self._pub = self.create_publisher(Int64, "number", 10)
+        self._timer = self.create_timer(1.0, self.publish_number)
 
-        self.get_logger().info("AddTwoInts service server started: /add_two_ints")
+        self._number = 0
+        self.get_logger().info("number_publisher started (publishing on /number)")
 
-    def callback_add_two_ints(self, request: AddTwoInts.Request, response: AddTwoInts.Response):
-        # Compute result
-        response.sum = request.a + request.b
-
-        # Log for visibility
-        self.get_logger().info(f"Request: a={request.a}, b={request.b} -> sum={response.sum}")
-
-        # IMPORTANT: you must return the response in Python
-        return response
+    def publish_number(self):
+        msg = Int64()
+        msg.data = self._number
+        self._pub.publish(msg)
+        self.get_logger().info(f"Published: {msg.data}")
+        self._number += 1
 
 
 def main(args=None):
     rclpy.init(args=args)
-    node = AddTwoIntsServerNode()
-
-    try:
-        rclpy.spin(node)
-    except KeyboardInterrupt:
-        pass
-    finally:
-        node.destroy_node()
-        rclpy.shutdown()
+    node = NumberPublisherNode()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
 
 
 if __name__ == "__main__":
@@ -137,67 +143,98 @@ if __name__ == "__main__":
 
 ---
 
-## 7. Service Client node
+## 7. Counter node (Subscriber + Publisher + Service Server)
 
-File: `my_first_robot_package/add_two_ints_client.py`
+File: `my_first_robot_package/number_counter.py`
 
 ### 7.1 Purpose
 
-The client node:
-- Creates a client for the service `add_two_ints` (i.e., `/add_two_ints`).
-- Waits for the service to become available.
-- Sends example requests to the server.
-- Prints the results as soon as each response arrives.
+The counter node combines three roles:
 
-This client uses asynchronous calls (`call_async`) and a callback to process results.
+1) Subscriber
+- Subscribes to `/number` (`Int64`).
+- Every time a number arrives, it adds it to a running total called `counter`.
 
-### 7.2 Code (client)
+2) Publisher
+- Publishes the updated running total on `/number_count` (`Int64`).
+
+3) Service server
+- Provides a service named `/reset_counter` of type `SetBool`.
+- When the service is called:
+  - If `request.data == true`, the running total is reset to `0`.
+  - The server replies with `success` and a `message` string describing what happened.
+
+### 7.2 Code (counter + service)
 
 ```python
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from functools import partial
-from example_interfaces.srv import AddTwoInts
+
+from example_interfaces.msg import Int64
+from example_interfaces.srv import SetBool
 
 
-class AddTwoIntsClientNode(Node):
+class NumberCounterNode(Node):
     def __init__(self):
-        super().__init__("add_two_ints_client")
+        super().__init__("number_counter")
 
-        # Create client once (service name must match server)
-        self._client = self.create_client(AddTwoInts, "add_two_ints")
+        self._counter = 0
 
-        # Example calls (send multiple requests)
-        self.call_add_two_ints(2, 7)
-        self.call_add_two_ints(1, 4)
-        self.call_add_two_ints(10, 20)
+        # Subscriber: /number
+        self._sub = self.create_subscription(
+            Int64,
+            "number",
+            self.callback_number,
+            10
+        )
 
-    def call_add_two_ints(self, a: int, b: int):
-        # Wait for service (safe startup)
-        while not self._client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().warn("Service '/add_two_ints' not available, waiting...")
+        # Publisher: /number_count
+        self._pub = self.create_publisher(
+            Int64,
+            "number_count",
+            10
+        )
 
-        # Build request
-        request = AddTwoInts.Request()
-        request.a = a
-        request.b = b
+        # Service server: /reset_counter
+        self._srv = self.create_service(
+            SetBool,
+            "/reset_counter",
+            self.callback_reset_counter
+        )
 
-        # Send async request
-        future = self._client.call_async(request)
+        self.get_logger().info(
+            "number_counter started (sub: /number, pub: /number_count, srv: /reset_counter)"
+        )
 
-        # Register callback; pass request too (so we can log a + b)
-        future.add_done_callback(partial(self.callback_call_add_two_ints, request))
+    def callback_number(self, msg: Int64):
+        self._counter += msg.data
 
-    def callback_call_add_two_ints(self, request: AddTwoInts.Request, future):
-        response = future.result()
-        self.get_logger().info(f"{request.a} + {request.b} = {response.sum}")
+        out = Int64()
+        out.data = self._counter
+        self._pub.publish(out)
+
+        self.get_logger().info(f"Received {msg.data} -> counter = {self._counter}")
+
+    def callback_reset_counter(self, request: SetBool.Request, response: SetBool.Response):
+        if request.data:
+            self._counter = 0
+            response.success = True
+            response.message = "Counter reset to 0"
+            self.get_logger().info("Service /reset_counter called with data=True -> counter reset to 0")
+        else:
+            response.success = False
+            response.message = "Request data was false; counter not reset"
+            self.get_logger().info("Service /reset_counter called with data=False -> no reset")
+
+        return response
 
 
 def main(args=None):
     rclpy.init(args=args)
-    node = AddTwoIntsClientNode()
+    node = NumberCounterNode()
     rclpy.spin(node)
+    node.destroy_node()
     rclpy.shutdown()
 
 
@@ -209,19 +246,19 @@ if __name__ == "__main__":
 
 ## 8. Register executables in setup.py
 
-In `setup.py`, ensure you have the console scripts:
+In `setup.py`, ensure you have these console scripts:
 
 ```python
 entry_points={
     "console_scripts": [
-        "add_two_ints_server = my_first_robot_package.add_two_ints_server:main",
-        "add_two_ints_client = my_first_robot_package.add_two_ints_client:main",
+        "number_publisher = my_first_robot_package.number_publisher:main",
+        "number_counter = my_first_robot_package.number_counter:main",
     ],
 },
 ```
 
 Common error:
-- If the module does not define `main`, you will see an error similar to:
+- If a module does not define `main`, you will see an error similar to:
   `AttributeError: module ... has no attribute 'main'`
 
 ---
@@ -238,44 +275,67 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 
-### 9.2 Run the server (Terminal A)
+### 9.2 Run the publisher (Terminal A)
 
 ```bash
 source ~/first_work-/src/install/setup.bash
-ros2 run my_first_robot_package add_two_ints_server
+ros2 run my_first_robot_package number_publisher
 ```
 
-![Diagrama de flujo de Git](recursos/imgs/activity2/ter1.jpg)
+![Publisher terminal evidence](recursos/imgs/activity2/ter1.jpg)
 
-### 9.3 Run the client (Terminal B)
+### 9.3 Run the counter node (Terminal B)
 
 ```bash
 source ~/first_work-/src/install/setup.bash
-ros2 run my_first_robot_package add_two_ints_client
+ros2 run my_first_robot_package number_counter
 ```
 
-![Diagrama de flujo de Git](recursos/imgs/activity2/ter2.jpg)
+![Counter terminal evidence](recursos/imgs/activity2/ter2.jpg)
 
 Expected behavior:
-- The server prints log lines each time it receives a request.
-- The client prints the computed sums for each request.
+- The publisher prints published values.
+- The counter prints received values and updated `counter` totals.
+- The counter publishes the running total on `/number_count`.
 
 ---
 
-## 10. Test the service from the CLI
+## 10. Test the system
 
-With the server running, in another terminal:
+### 10.1 Echo the running total
+
+In another terminal:
 
 ```bash
 source ~/first_work-/src/install/setup.bash
-ros2 service list
-ros2 service type /add_two_ints
-ros2 service call /add_two_ints example_interfaces/srv/AddTwoInts "{a: 5, b: 9}"
+ros2 topic echo /number_count
+```
+
+You should see increasing totals as the counter accumulates numbers from `/number`.
+
+### 10.2 Call the reset service from the CLI
+
+With the counter node running:
+
+```bash
+source ~/first_work-/src/install/setup.bash
+ros2 service call /reset_counter example_interfaces/srv/SetBool "{data: true}"
 ```
 
 Expected:
-- The terminal prints the response containing `sum`.
-- The server logs the request and result.
+- The service response returns `success: true` and a message.
+- The internal counter value resets to `0`.
+- The next published values on `/number_count` restart from the reset state.
+
+Optional (no reset):
+
+```bash
+ros2 service call /reset_counter example_interfaces/srv/SetBool "{data: false}"
+```
+
+Expected:
+- The service response returns `success: false`.
+- The counter is not reset.
 
 ---
 
@@ -287,10 +347,22 @@ List nodes:
 ros2 node list
 ```
 
+List topics:
+
+```bash
+ros2 topic list
+```
+
 List services:
 
 ```bash
 ros2 service list
+```
+
+Check service type:
+
+```bash
+ros2 service type /reset_counter
 ```
 
 Visual graph:
@@ -303,16 +375,35 @@ rqt_graph
 
 ## 12. Troubleshooting
 
-1) Client stays in: “Service '/add_two_ints' not available, waiting...”
-- The server is not running, or the service name does not match.
-- Confirm the server uses `"add_two_ints"` and that the service appears as `/add_two_ints`.
+1) `ros2 run` says executable not found
+- Confirm `setup.py` includes the console script entry points.
+- Rebuild and re-source:
 
-2) “executable not found” when running `ros2 run`
-- The console scripts were not added to `setup.py`, or the workspace was not rebuilt.
-- Rebuild and re-source the workspace.
+```bash
+cd ~/first_work-/src
+colcon build --symlink-install
+source install/setup.bash
+```
 
-3) “has no attribute 'main'”
-- The file does not define `main()` at the top level, or `setup.py` points to the wrong function name.
-- Ensure `def main(args=None):` exists and matches the entry point.
+2) `/reset_counter` does not appear in `ros2 service list`
+- The `number_counter` node is not running, or the service name differs.
+- Confirm the service is created with `"/reset_counter"` and type `SetBool`.
+
+3) `ros2 service call` fails with type errors
+- Confirm the exact service type:
+
+```bash
+ros2 service type /reset_counter
+```
+
+- Confirm the interface:
+
+```bash
+ros2 interface show example_interfaces/srv/SetBool
+```
+
+4) `/number_count` does not update
+- Ensure `number_publisher` is publishing on `/number`.
+- Ensure `number_counter` subscribes to `"number"` and publishes `"number_count"`.
 
 ---
