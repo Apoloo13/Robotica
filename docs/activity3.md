@@ -28,77 +28,9 @@ where:
 
 ---
 
-## 2. What is needed for forward kinematics
+## 2. Model 1: UR5e forward kinematics (DH table)
 
-To compute FK using the Denavit–Hartenberg (DH) convention, you need:
-
-1. A consistent frame assignment \( \{0\}, \{1\}, \dots, \{6\} \)
-2. DH parameters for each joint/link pair
-3. A joint vector \( \mathbf{q} \) (joint angles, in radians)
-4. A convention (standard DH or a variant) and a consistent multiplication order
-
-### 2.1 Standard DH parameters
-
-For each link \( i \), the standard DH parameters are:
-
-- \( a_i \): link length (translation along \( x_i \))
-- \( d_i \): link offset (translation along \( z_{i-1} \))
-- \( \alpha_i \): link twist (rotation about \( x_i \))
-- \( \theta_i \): joint angle (rotation about \( z_{i-1} \))
-
-For a revolute joint, \( \theta_i \) contains the variable \( q_i \) (possibly plus a constant offset).
-
-### 2.2 Homogeneous transform for each link
-
-Using standard DH, the transform from frame \( i-1 \) to \( i \) is:
-
-\[
-{}^{i-1}T_{i} =
-R_z(\theta_i)\,T_z(d_i)\,T_x(a_i)\,R_x(\alpha_i)
-\]
-
-Its matrix form is:
-
-\[
-{}^{i-1}T_{i}=
-\begin{bmatrix}
-\cos\theta_i & -\sin\theta_i\cos\alpha_i & \sin\theta_i\sin\alpha_i & a_i\cos\theta_i \\
-\sin\theta_i & \cos\theta_i\cos\alpha_i & -\cos\theta_i\sin\alpha_i & a_i\sin\theta_i \\
-0 & \sin\alpha_i & \cos\alpha_i & d_i \\
-0 & 0 & 0 & 1
-\end{bmatrix}
-\]
-
-### 2.3 Full forward kinematics
-
-Once each \( {}^{i-1}T_i \) is defined, multiply them in order:
-
-\[
-{}^{0}T_{6} =
-{}^{0}T_{1}\,
-{}^{1}T_{2}\,
-{}^{2}T_{3}\,
-{}^{3}T_{4}\,
-{}^{4}T_{5}\,
-{}^{5}T_{6}
-\]
-
-The end-effector position and orientation are taken from \( {}^{0}T_{6} \):
-
-- Position: \( {}^{0}p_{6} = [T_{0,3},\,T_{1,3},\,T_{2,3}]^T \)
-- Orientation: \( {}^{0}R_{6} \) is the top-left 3×3 block
-
-If a tool/TCP offset is used, apply an additional transform:
-
-\[
-{}^{0}T_{TCP} = {}^{0}T_{6}\,{}^{6}T_{TCP}
-\]
-
----
-
-## 3. Model 1: UR5e forward kinematics (DH table)
-
-### 3.1 Notes about the UR5e model
+### 2.1 Notes about the UR5e model
 
 UR5e is a 6-DOF serial manipulator with a 3-DOF wrist. The DH table below uses symbolic geometric parameters \(L_1 \dots L_6\) and joint variables \(q_1 \dots q_6\).
 
@@ -108,13 +40,13 @@ Important modeling details:
 - Length parameters \(L_i\) must be defined in consistent units (all in meters or all in millimeters).
 - The resulting \( {}^{0}T_{6} \) depends on the chosen base frame and the end-effector frame definition (tool flange vs TCP).
 
-### 3.2 Image placeholder (UR5e diagram)
+### 2.2 Image placeholder (UR5e diagram)
 
 Insert the UR5e kinematic diagram here (before the table):
 
 ![UR5e kinematic diagram](recursos/imgs/activity3/UR5E.jpeg)
 
-### 3.3 UR5e DH table (LaTeX)
+### 2.3 UR5e DH table (LaTeX)
 
 \[
 \textbf{UR5e DH Parameters}=
@@ -130,7 +62,7 @@ Insert the UR5e kinematic diagram here (before the table):
 \end{array}
 \]
 
-### 3.4 How to compute the UR5e forward kinematics
+### 2.4 How to compute the UR5e forward kinematics
 
 1. Build each \( {}^{i-1}T_i \) using the matrix definition in Section 2.2 and the parameters from the table.
 2. Substitute joint angles \(q_i\) (radians) and link constants \(L_i\).
@@ -140,9 +72,9 @@ Insert the UR5e kinematic diagram here (before the table):
 
 ---
 
-## 4. Model 2: KUKA KR16 forward kinematics (DH-like table)
+## 3. Model 2: KUKA KR16 forward kinematics (DH-like table)
 
-### 4.1 Notes about the KR16 model
+### 3.1 Notes about the KR16 model
 
 KUKA KR16 is a 6-DOF industrial manipulator. Many KR-series robots are modeled with a DH (or DH-like) parameterization. The table below uses the symbols:
 
@@ -164,13 +96,13 @@ and use:
 
 As with the UR5e, constant angle terms (for example \(\pi/2\) shifts) are tied to the chosen reference frames and the definition of the robot “zero” configuration.
 
-### 4.2 Image placeholder (KR16 diagram)
+### 3.2 Image placeholder (KR16 diagram)
 
 Insert the KR16 kinematic diagram here (before the table):
 
 ![KUKA KR16 kinematic diagram](recursos/imgs/activity3/KUKAKR16.jpeg)
 
-### 4.3 KR16 parameter table (LaTeX)
+### 3.3 KR16 parameter table (LaTeX)
 
 \[
 \textbf{KUKA KR16 Parameters}=
@@ -186,7 +118,7 @@ Insert the KR16 kinematic diagram here (before the table):
 \end{array}
 \]
 
-### 4.4 How to compute the KR16 forward kinematics
+### 3.4 How to compute the KR16 forward kinematics
 
 1. Use the transform definition \( {}^{i-1}T_i = R_z(\theta_i)\,T_z(L_i)\,T_x(D2_i)\,R_x(\alpha_i) \).
 2. Substitute link constants \(L_i\), \(D2_i\) and joint variables \(q_i\).
@@ -195,54 +127,3 @@ Insert the KR16 kinematic diagram here (before the table):
 5. Apply any TCP/tool transform if needed.
 
 ---
-
-## 5. Practical implementation notes
-
-### 5.1 Units and conventions
-
-- Use consistent units for all length parameters (meters or millimeters).
-- Use radians for all joint angles in calculations.
-- Verify the chosen base frame orientation and the direction of each joint axis.
-- If comparing with simulation (URDF, MoveIt, manufacturer software), ensure the same zero configuration and TCP definition.
-
-### 5.2 Validation recommendations
-
-To validate your FK model:
-
-1. Choose one or more joint configurations \(\mathbf{q}\).
-2. Compute \( {}^{0}T_{6}(\mathbf{q}) \) using your DH model.
-3. Compare the pose with:
-   - A trusted simulator (for example, URDF-based visualization)
-   - Manufacturer software (where available)
-4. If results differ by a constant transform, check TCP/tool offsets.
-5. If results differ by sign or axis flips, check frame assignments and joint axis directions.
-
----
-
-## 6. Example workflow (commands)
-
-From the workspace root (adjust the path as needed):
-
-```bash
-cd ~/first_work-/src
-colcon build --symlink-install
-source install/setup.bash
-```
-
-Optional commands for verifying ROS 2 graph when running nodes:
-
-```bash
-ros2 node list
-ros2 topic list
-rqt_graph
-```
-
----
-
-## 7. Deliverables checklist
-
-- DH/parameter tables included (UR5e and KR16)
-- Two diagram placeholders inserted (one before each table)
-- Forward kinematics method explained (link transforms and product of matrices)
-- Notes about offsets, frames, units, and validation included
-- Evidence images added (terminal output and graph) if required by the activity
