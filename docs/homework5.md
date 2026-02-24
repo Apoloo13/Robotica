@@ -9,7 +9,7 @@ The project is a multi-node ROS 2 application where:
 - `turtle_controller` controls `turtle1` to chase and catch turtles
 - Custom interfaces are used to share alive turtle information and request a catch action
 
-This report is focused on documenting the implementation that was already developed.
+This report documents an implementation that was already completed, focusing on how each package, node, topic, and service contributes to the final behavior. The overall goal is to integrate ROS 2 basics (topics, services, custom interfaces, parameters, and launch files) in a single working application.
 
 ---
 
@@ -23,6 +23,13 @@ Main expected features (from the assignment instructions):
 - Control `turtle1` using a feedback controller
 - Request capture of a turtle through a custom service
 - Use a launch file and YAML parameters to start the system
+
+In practice, this capstone demonstrates a complete control loop:
+1. Perception/state update (`/turtle1/pose`, `/alive_turtles`)
+2. Decision (select nearest turtle)
+3. Action (`/turtle1/cmd_vel`)
+4. Task completion request (`/catch_turtle`)
+5. Environment update (remove turtle and republish alive list)
 
 ---
 
@@ -43,13 +50,24 @@ Main expected features (from the assignment instructions):
 - `/kill` (called by spawner)
 - `/catch_turtle` (custom service offered by spawner, called by controller)
 
+This architecture separates responsibilities clearly:
+- `turtle_spawner` manages the "world state" of target turtles.
+- `turtle_controller` manages motion control and pursuit behavior.
+- `turtlesim_node` provides the simulation and native turtle management services.
+
+This separation is aligned with the assignment intent: use ROS 2 communication primitives to coordinate independent nodes.
+
 ---
 
-## 6. Custom interfaces package (`er_interfaces_turtle`)
+## 4. Custom interfaces package (`er_interfaces_turtle`)
 
 This package defines the messages and service used by the controller and spawner.
 
-### 6.1 `TurtleIn.msg`
+Custom interfaces are required because the default ROS 2 and turtlesim interfaces do not provide:
+- a compact list of all alive turtles with positions (`TurtleArray`)
+- a custom "catch request" semantic (`CatchTurtle`)
+
+### 4.1 `TurtleIn.msg`
 
 Purpose:
 - Represents a turtle entry in the alive list.
@@ -67,9 +85,11 @@ Explanation:
 - `x`, `y`: turtle position used when spawned
 - `theta`: turtle heading used when spawned
 
+This message is the basic unit used by the spawner to publish tracked turtles and by the controller to choose a target.
+
 ---
 
-### 6.2 `TurtleArray.msg`
+### 4.2 `TurtleArray.msg`
 
 Purpose:
 - Publishes all currently alive turtles in one message.
@@ -82,9 +102,11 @@ Explanation:
 - `turtles` is an array of `TurtleIn`
 - This topic is published by `turtle_spawner` and read by `turtle_controller`
 
+Using a single array message avoids publishing multiple topics or multiple services just to share the current list of targets. It also makes the controller logic simpler because it receives the full set of candidates in one callback.
+
 ---
 
-### 6.3 `CatchTurtle.srv`
+### 4.3 `CatchTurtle.srv`
 
 Purpose:
 - Requests that one turtle be removed (caught) by name.
@@ -101,9 +123,11 @@ Explanation:
 - Response:
   - `success`: whether the request was accepted and processed
 
+This service acts as the bridge between "controller reached target" and "spawner updates the alive list + kills turtle in turtlesim". It keeps the controller focused on motion and the spawner focused on entity management.
+
 ---
 
-### 6.4 Notes on interface package build files
+### 4.4 Notes on interface package build files
 
 The interface package must use `rosidl_generate_interfaces(...)` in `CMakeLists.txt` and declare the correct dependencies in `package.xml` (`rosidl_default_generators`, `rosidl_default_runtime`, and `ament_cmake`).
 
@@ -115,9 +139,11 @@ This matches the imports used in the Python nodes:
 - `from er_interfaces_turtle.msg import ...`
 - `from er_interfaces_turtle.srv import ...`
 
+This consistency is important because any mismatch between package name, generated interfaces, and Python imports causes build/import errors.
+
 ---
 
-## 7. Python nodes package (`er_turtle`)
+## 5. Python nodes package (`er_turtle`)
 
 This package contains the two custom nodes:
 - `turtle_spawner`
@@ -125,11 +151,15 @@ This package contains the two custom nodes:
 
 It also includes `setup.py`/`setup.cfg` for registering executables.
 
+Functionally, this package is where the runtime behavior of the capstone lives:
+- one node manages target generation/removal
+- the other node performs guidance and pursuit
+
 ---
 
-## 8. `turtle_spawner.py` (Spawner + alive list manager + catch service server)
+## 5. `turtle_spawner.py` (Spawner + alive list manager + catch service server)
 
-### 8.1 Role in the system
+### 5.1 Role in the system
 
 `MySpawner` is responsible for:
 - Spawning turtles periodically at random positions using `/spawn`
@@ -140,18 +170,26 @@ It also includes `setup.py`/`setup.cfg` for registering executables.
 
 This node acts as the "world manager" for the capstone.
 
+It centralizes the logical state of active targets so the controller does not need to know how turtles are created or removed internally.
+
 ---
 
-### 8.2 Main ROS interfaces used by `turtle_spawner`
+### 5.2 Main ROS interfaces used by `turtle_spawner`
 
 - Client: `spawn` (`turtlesim/srv/Spawn`)
 - Client: `kill` (`turtlesim/srv/Kill`)
 - Publisher: `alive_turtles` (`er_interfaces_turtle/msg/TurtleArray`)
 - Service server: `catch_turtle` (`er_interfaces_turtle/srv/CatchTurtle`)
 
+The node uses both ROS 2 service client and server roles:
+- client role for interacting with `turtlesim`
+- server role for receiving "catch" requests from the controller
+
+This is one of the key integration points of the assignment.
+
 ---
 
-### 8.3 Important implementation details
+### 5.3 Important implementation details
 
 #### Parameters
 The node declares and uses:
@@ -160,9 +198,15 @@ The node declares and uses:
 
 These are later configured in the bringup YAML file.
 
+This allows the node behavior to be modified without changing code:
+- faster/slower spawn rate
+- different naming conventions
+
 #### Internal state
 - `cnt_name`: starts at `2` (because `turtle1` already exists in turtlesim)
 - `alive_turtlesA`: stores the published alive turtle array
+
+Starting at `2` is important because `turtlesim_node` creates `turtle1` automatically, and the spawned turtles are intended to be targets (`turtle2`, `turtle3`, ...).
 
 #### Random spawning
 The node generates:
@@ -170,15 +214,19 @@ The node generates:
 - `y` in `[0.5, 10.5]`
 - `theta` in `[-pi, pi]`
 
+These ranges keep spawned turtles inside the visible map region and produce random headings for variety.
+
 #### Catch service behavior
 When `catch_turtle` is called:
 - It calls `/kill` using the received turtle name
 - Removes the turtle from the internal alive list
 - Republishes the updated `alive_turtles` message
 
+Republishing after removal is essential so the controller always works with the current list and can immediately choose a new nearest target.
+
 ---
 
-### 8.5 Full code (`turtle_spawner.py`)
+### 5.5 Full code (`turtle_spawner.py`)
 
 ```python
 #!/usr/bin/env python3
@@ -294,9 +342,9 @@ if __name__ == "__main__":
 
 ---
 
-## 9. `turtle_controller.py` (Chaser controller + catch service client)
+## 6. `turtle_controller.py` (Chaser controller + catch service client)
 
-### 9.1 Role in the system
+### 6.1 Role in the system
 
 `TurtlePointController`:
 - Reads `turtle1` pose from `turtle1/pose`
@@ -307,9 +355,11 @@ if __name__ == "__main__":
 
 This is the intelligent behavior node of the capstone.
 
+Its main responsibility is not spawning or deleting turtles, but generating motion commands that make `turtle1` converge to the active target robustly and repeatedly.
+
 ---
 
-### 9.2 Control strategy summary
+### 6.2 Control strategy summary
 
 The controller uses:
 
@@ -331,9 +381,11 @@ At that moment:
 - Resets PID memory
 - Calls `catch_turtle` for the selected turtle name
 
+This behavior matches the assignment goal of autonomous pursuit-and-catch using ROS communication and feedback control.
+
 ---
 
-### 9.3 Discrete PID (incremental form) used in the code
+### 6.3 Discrete PID (incremental form) used in the code
 
 The implementation is based on an incremental discrete PID form (as coded in `IncPid.step()`):
 
@@ -348,12 +400,17 @@ Where:
 
 The code computes coefficients in `set_from_continuous(...)` and applies clipping with `clip_value(...)`.
 
-Image placeholder (PID equation / derivation):
+In this implementation:
+- one PID instance (`self.v_pid`) regulates the distance error and generates the linear speed reference
+- another PID instance (`self.w_pid`) regulates the heading error and generates the angular speed command
+
+Additionally, the linear command is multiplied by a cosine term based on `alpha`, which reduces forward motion when the turtle is not facing the target. This improves turning behavior and reduces circular trajectories around the goal.
+
 ![Terminal A screenshot](recursos/imgs/homework5/tabla.jpg)
 
 ---
 
-### 9.4 Main tuning/limits in the uploaded implementation
+### 6.4 Main tuning/limits in the uploaded implementation
 
 - Sample time: `Ts = 0.05 s`
 - Position tolerance: `0.275`
@@ -364,10 +421,11 @@ Tuned PID values used in code:
 - Linear PID: `kc=2.25`, `ti=0.985`, `td=0.0275`
 - Angular PID: `kc=3.6`, `ti=0.65`, `td=0.0245`
 
+These values define the response speed and smoothness of the pursuit behavior. The command limits are especially important in `turtlesim` to prevent excessive velocities that could make the trajectory unstable or visually erratic.
 
 ---
 
-### 9.6 Full code (`turtle_controller.py`)
+### 6.6 Full code (`turtle_controller.py`)
 
 ```python
 #!/usr/bin/env python3
@@ -623,16 +681,18 @@ if __name__ == "__main__":
 
 ---
 
-## 10. `setup.py` and `setup.cfg` (Python package registration)
+## 7. `setup.py` and `setup.cfg` (Python package registration)
 
-### 10.1 Purpose
+### 7.1 Purpose
 
 These files register the executable entry points so ROS 2 can run the Python nodes using:
 
 - `ros2 run er_turtle turtle_spawner`
 - `ros2 run er_turtle turtle_controller`
 
-### 10.2 `setup.py` (uploaded)
+This is required for `ament_python` packages because ROS 2 resolves executable names through the `console_scripts` declared in `setup.py`.
+
+### 7.2 `setup.py` (uploaded)
 
 ```python
 from setuptools import find_packages, setup
@@ -669,7 +729,7 @@ setup(
 )
 ```
 
-### 10.3 `setup.cfg` (uploaded)
+### 7.3 `setup.cfg` (uploaded)
 
 ```ini
 [develop]
@@ -678,25 +738,36 @@ script_dir=$base/lib/er_turtle
 install_scripts=$base/lib/er_turtle
 ```
 
-### 10.4 Notes
+### 7.4 Notes
 - The uploaded `setup.py` includes an extra entry point:
   - `turtle_controller2 = er_turtle.turtle_controller2:main`
 - If `turtle_controller2.py` does not exist, that entry point should be removed to avoid runtime errors.
 
+For the capstone workflow, the important part is that `turtle_spawner` and `turtle_controller` are correctly registered, since both are referenced by the launch file.
+
 ---
 
-## 11. Bringup package (`turtle_bringup`)
+## 8. Bringup package (`turtle_bringup`)
 
 The bringup package starts the complete application and provides parameters for `turtle_spawner`.
 
+Using a dedicated bringup package is good practice because it keeps:
+- executable node code in one package (`er_turtle`)
+- custom interfaces in another (`er_interfaces_turtle`)
+- system startup/configuration files in a separate package (`turtle_bringup`)
+
+This improves organization and makes the system easier to reuse and test.
+
 ---
 
-### 11.1 Launch file (`app_launch_turtle.xml`)
+### 8.1 Launch file (`app_launch_turtle.xml`)
 
 Purpose:
 - Starts `turtlesim_node`
 - Starts `turtle_spawner` and loads parameters from YAML
 - Starts `turtle_controller`
+
+This file is the entry point for running the full demo in one command, which is one of the key expected outcomes of the capstone.
 
 ```xml
 <launch>
@@ -710,7 +781,7 @@ Purpose:
 
 ---
 
-### 11.2 Parameter file (`t_param.yaml`)
+### 8.2 Parameter file (`t_param.yaml`)
 
 Purpose:
 - Configures `turtle_spawner` parameters from a centralized YAML file
@@ -726,12 +797,20 @@ Explanation:
 - `spawn_frequency`: timer period in seconds for spawning new turtles
 - `turtle_name_prefix`: prefix for generated names (`turtle2`, `turtle3`, ...)
 
+This keeps runtime tuning outside the source code and matches the assignment requirement of using parameters in a realistic ROS 2 setup.
+
 ---
 
-### 11.3 Bringup `CMakeLists.txt` (uploaded)
+### 8.3 Bringup `CMakeLists.txt` (uploaded)
 
 Purpose:
 - Installs the `launch/` and `config/` directories into the package share directory
+
+This installation step is necessary so ROS 2 can find:
+- `app_launch_turtle.xml`
+- `t_param.yaml`
+
+when executing `ros2 launch turtle_bringup app_launch_turtle.xml`.
 
 ```cmake
 cmake_minimum_required(VERSION 3.8)
@@ -754,7 +833,7 @@ ament_package()
 
 ---
 
-## 12. How the full flow works (step-by-step)
+## 9. How the full flow works (step-by-step)
 
 1. `app_launch_turtle.xml` starts `turtlesim_node`, `turtle_spawner`, and `turtle_controller`.
 2. `turtle_spawner` uses the YAML parameters to set spawn period and name prefix.
@@ -766,11 +845,13 @@ ament_package()
 8. `turtle_spawner` receives `catch_turtle`, calls `/kill`, removes the turtle from the alive list, and republishes the updated list.
 9. The process repeats as new turtles continue spawning.
 
+This sequence directly reflects the intended integration of topics + services + custom interfaces described in the activity.
+
 ---
 
-## 13. Useful commands (from assignment workflow)
+## 10. Useful commands (from assignment workflow)
 
-### 13.1 Type inspection
+### 10.1 Type inspection
 
 ```bash
 ros2 topic list -t
@@ -778,7 +859,11 @@ ros2 service list -t
 ros2 action list -t
 ```
 
-### 13.2 Interface structure inspection
+These commands help verify that:
+- the expected topics/services exist
+- the interface types match the implementation
+
+### 10.2 Interface structure inspection
 
 ```bash
 ros2 interface show er_interfaces_turtle/msg/TurtleIn
@@ -788,7 +873,9 @@ ros2 interface show turtlesim/srv/Spawn
 ros2 interface show turtlesim/srv/Kill
 ```
 
-### 13.3 Verbose connection info
+These commands are especially useful during documentation and debugging because they confirm the exact fields used by the messages/services.
+
+### 10.3 Verbose connection info
 
 ```bash
 ros2 topic info /alive_turtles -v
@@ -799,9 +886,11 @@ ros2 service info /spawn -v
 ros2 service info /kill -v
 ```
 
+Use these commands to validate publishers/subscribers and service clients/servers, which is very helpful to demonstrate that the final graph matches the project architecture.
+
 ---
 
-## 14. Terminal and results
+## 11. Terminal and results
 
 [Demo video](recursos/imgs/homework5/resultado.mp4)
 
