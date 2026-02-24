@@ -2,8 +2,6 @@
 
 ## 1. Overview
 
-This document explains and documents the capstone project based on the Turtlesim "Catch Them All" instructions.
-
 The project is a multi-node ROS 2 application where:
 
 - `turtlesim_node` provides the simulator and built-in services (`/spawn`, `/kill`)
@@ -47,67 +45,6 @@ Main expected features (from the assignment instructions):
 
 ---
 
-## 4. Evidence placeholders
-
-### 4.1 Video placeholder (system working)
-
-Place your demo video here (MkDocs can embed video with HTML if desired):
-
-```html
-<!-- Replace the path with your final video file -->
-<video controls width="900">
-  <source src="recursos/videos/Ros_Basics_Capstone_demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-```
-
-Alternative placeholder (if you prefer a screenshot + link):
-```md
-[Demo video](recursos/videos/Ros_Basics_Capstone_demo.mp4)
-```
-
-### 4.2 Terminal evidence placeholder
-
-![Terminal evidence](recursos/imgs/ros_basics_capstone/terminal_output.png)
-
-### 4.3 Discrete PID equation placeholder
-
-![Discrete PID equation](recursos/imgs/ros_basics_capstone/pid_discrete_equation.png)
-
----
-
-## 5. Workspace/package organization
-
-A typical structure for this project is:
-
-```text
-workspace/src/
-├─ er_interfaces_turtle/        # custom msg/srv package
-│  ├─ msg/
-│  │  ├─ TurtleIn.msg
-│  │  └─ TurtleArray.msg
-│  ├─ srv/
-│  │  └─ CatchTurtle.srv
-│  ├─ CMakeLists.txt
-│  └─ package.xml
-├─ er_turtle/                   # python nodes package
-│  ├─ er_turtle/
-│  │  ├─ turtle_controller.py
-│  │  └─ turtle_spawner.py
-│  ├─ setup.py
-│  ├─ setup.cfg
-│  └─ package.xml
-└─ turtle_bringup/              # launch + config package
-   ├─ launch/
-   │  └─ app_launch_turtle.xml
-   ├─ config/
-   │  └─ t_param.yaml
-   ├─ CMakeLists.txt
-   └─ package.xml
-```
-
----
-
 ## 6. Custom interfaces package (`er_interfaces_turtle`)
 
 This package defines the messages and service used by the controller and spawner.
@@ -130,9 +67,6 @@ Explanation:
 - `x`, `y`: turtle position used when spawned
 - `theta`: turtle heading used when spawned
 
-Image placeholder (code explanation):
-![TurtleIn message explanation](recursos/imgs/ros_basics_capstone/interfaces_turtlein.png)
-
 ---
 
 ### 6.2 `TurtleArray.msg`
@@ -147,9 +81,6 @@ TurtleIn[] turtles
 Explanation:
 - `turtles` is an array of `TurtleIn`
 - This topic is published by `turtle_spawner` and read by `turtle_controller`
-
-Image placeholder (code explanation):
-![TurtleArray message explanation](recursos/imgs/ros_basics_capstone/interfaces_turtlearray.png)
 
 ---
 
@@ -169,9 +100,6 @@ Explanation:
   - `name`: the turtle to remove
 - Response:
   - `success`: whether the request was accepted and processed
-
-Image placeholder (code explanation):
-![CatchTurtle service explanation](recursos/imgs/ros_basics_capstone/interfaces_catchturtle.png)
 
 ---
 
@@ -247,14 +175,6 @@ When `catch_turtle` is called:
 - It calls `/kill` using the received turtle name
 - Removes the turtle from the internal alive list
 - Republishes the updated `alive_turtles` message
-
----
-
-### 8.4 Image placeholders for code explanation (`turtle_spawner.py`)
-
-![Spawner code explanation 1](recursos/imgs/ros_basics_capstone/spawner_code_explain_1.png)
-
-![Spawner code explanation 2](recursos/imgs/ros_basics_capstone/spawner_code_explain_2.png)
 
 ---
 
@@ -429,7 +349,7 @@ Where:
 The code computes coefficients in `set_from_continuous(...)` and applies clipping with `clip_value(...)`.
 
 Image placeholder (PID equation / derivation):
-![Discrete PID equation and coefficients](recursos/imgs/ros_basics_capstone/pid_discrete_detail.png)
+![Terminal A screenshot](recursos/imgs/homework5/tabla.jpg)
 
 ---
 
@@ -444,15 +364,6 @@ Tuned PID values used in code:
 - Linear PID: `kc=2.25`, `ti=0.985`, `td=0.0275`
 - Angular PID: `kc=3.6`, `ti=0.65`, `td=0.0245`
 
----
-
-### 9.5 Image placeholders for code explanation (`turtle_controller.py`)
-
-![Controller code explanation 1](recursos/imgs/ros_basics_capstone/controller_code_explain_1.png)
-
-![Controller code explanation 2](recursos/imgs/ros_basics_capstone/controller_code_explain_2.png)
-
-![Controller code explanation 3](recursos/imgs/ros_basics_capstone/controller_code_explain_3.png)
 
 ---
 
@@ -772,9 +683,6 @@ install_scripts=$base/lib/er_turtle
   - `turtle_controller2 = er_turtle.turtle_controller2:main`
 - If `turtle_controller2.py` does not exist, that entry point should be removed to avoid runtime errors.
 
-Image placeholder (package setup explanation):
-![Setup file explanation](recursos/imgs/ros_basics_capstone/setup_explain.png)
-
 ---
 
 ## 11. Bringup package (`turtle_bringup`)
@@ -800,9 +708,6 @@ Purpose:
 </launch>
 ```
 
-Image placeholder (launch diagram / explanation):
-![Launch file explanation](recursos/imgs/ros_basics_capstone/launch_explain.png)
-
 ---
 
 ### 11.2 Parameter file (`t_param.yaml`)
@@ -820,9 +725,6 @@ turtle_spawner:
 Explanation:
 - `spawn_frequency`: timer period in seconds for spawning new turtles
 - `turtle_name_prefix`: prefix for generated names (`turtle2`, `turtle3`, ...)
-
-Image placeholder (YAML parameter explanation):
-![YAML parameter explanation](recursos/imgs/ros_basics_capstone/yaml_explain.png)
 
 ---
 
@@ -897,80 +799,12 @@ ros2 service info /spawn -v
 ros2 service info /kill -v
 ```
 
-### 13.4 Graph visualization
-
-```bash
-rqt_graph
-```
-
-Image placeholder (RQT graph):
-![RQT graph evidence](recursos/imgs/ros_basics_capstone/rqt_graph.png)
-
 ---
 
-## 14. Terminal execution example (placeholders + commands)
+## 14. Terminal and results
 
-### 14.1 Terminal A – Launch the whole system
+[Demo video](recursos/imgs/homework5/resultado.mp4)
 
-Image placeholder (Terminal A):
-![Terminal A launch](recursos/imgs/ros_basics_capstone/terminal_A_launch.png)
-
-Command:
-```bash
-ros2 launch turtle_bringup app_launch_turtle.xml
-```
-
-### 14.2 Terminal B – Monitor alive turtles topic
-
-Image placeholder (Terminal B):
-![Terminal B alive_turtles](recursos/imgs/ros_basics_capstone/terminal_B_alive_turtles.png)
-
-Command:
-```bash
-ros2 topic echo /alive_turtles
-```
-
-### 14.3 Terminal C – Inspect catch service
-
-Image placeholder (Terminal C):
-![Terminal C service info](recursos/imgs/ros_basics_capstone/terminal_C_service_info.png)
-
-Command:
-```bash
-ros2 service info /catch_turtle -v
-```
-
----
-
-## 15. Code quality observations and notes
-
-### 15.1 Strong points of the implementation
-- Clear separation of responsibilities between spawner and controller
-- Custom interfaces match the project needs well
-- Controller logic includes:
-  - angle wrapping
-  - command saturation
-  - goal switching handling (PID reset when target changes)
-- Spawner republishes alive list after spawn and kill events
-
-### 15.2 Practical notes (as uploaded)
-- `setup.py` contains an extra entry point (`turtle_controller2`) that may require cleanup if the file is not present
-- Some package metadata fields are still placeholders (`TODO`)
-- For final delivery, verify all package manifests (`package.xml`) and dependencies are correct
-
----
-
-## 16. Conclusion
-
-This capstone integrates the main ROS 2 basics in a single project:
-
-- Topics (pose, cmd_vel, alive_turtles)
-- Services (spawn, kill, catch_turtle)
-- Custom interfaces (msg + srv)
-- Parameters (YAML)
-- Launch bringup
-- Closed-loop control (discrete incremental PID)
-
-The result is a complete multi-node application where `turtle1` autonomously pursues and catches spawned turtles in `turtlesim`.
+![Terminal screenshot](recursos/imgs/homework5/resultado.jpg)
 
 ---
