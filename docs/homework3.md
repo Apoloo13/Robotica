@@ -101,15 +101,11 @@ disp(T_0_N);
 
 ### Original problem image
 
-<p align="center">
-  <img src="recursos/imgs/homework3/imagen1.jpg" width="650">
-</p>
+![img1](recursos/imgs/homework3/Imagen1.jpg)
 
 ### Result (image of planes, origins, axis, links)
 
-<p align="center">
-  <img src="recursos/imgs/homework3/imagen2.jpg" width="650">
-</p>
+![img2](recursos/imgs/homework3/Imagen2.jpg)
 
 ### Data table (image)
 
@@ -172,15 +168,11 @@ T_{0N}=
 
 ### Original problem image
 
-<p align="center">
-  <img src="../recursos/imgs/homework3/imagen3.jpg" width="650">
-</p>
+![img3](recursos/imgs/homework3/Imagen3.jpg)
 
 ### Result (image of planes, origins, axis, links)
 
-<p align="center">
-  <img src="../recursos/imgs/homework3/imagen4.jpg" width="650">
-</p>
+![img4](recursos/imgs/homework3/Imagen4.jpg)
 
 ### Data table
 
@@ -255,15 +247,11 @@ T_{0N}=
 
 ### Original problem image
 
-<p align="center">
-  <img src="../recursos/imgs/homework3/imagen5.jpg" width="650">
-</p>
+![img5](recursos/imgs/homework3/Imagen5.jpg)
 
 ### Result (image of planes, origins, axis, links)
 
-<p align="center">
-  <img src="../recursos/imgs/homework3/imagen6.jpg" width="650">
-</p>
+![img5](recursos/imgs/homework3/Imagen5.jpg)
 
 ### Data table exercise 3
 
@@ -370,15 +358,11 @@ T_{0N}=
 
 ### Original problem image
 
-<p align="center">
-  <img src="../recursos/imgs/homework3/imagen7.jpg" width="650">
-</p>
+![img7](recursos/imgs/homework3/Imagen7.jpg)
 
 ### Result (image of planes, origins, axis, links)
 
-<p align="center">
-  <img src="../recursos/imgs/homework3/imagen8.jpg" width="650">
-</p>
+![img8](recursos/imgs/homework3/Imagen8.jpg)
 
 ### Data table
 
@@ -485,15 +469,11 @@ T_{0N}=
 
 ### Original problem image
 
-<p align="center">
-  <img src="../recursos/imgs/homework3/imagen9.jpg" width="650">
-</p>
+![img9](recursos/imgs/homework3/Imagen9.jpg)
 
 ### Result (image of planes, origins, axis, links)
 
-<p align="center">
-  <img src="../recursos/imgs/homework3/imagen10.jpg" width="650">
-</p>
+![img10](recursos/imgs/homework3/Imagen10.jpg)
 
 ### Data table exercise 5
 
