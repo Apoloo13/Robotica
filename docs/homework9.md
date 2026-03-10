@@ -1,5 +1,3 @@
-[Home](index.md)
-
 # URDF robots
 
 ## Objective:
