@@ -1,0 +1,2666 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../homework7/">
+      
+      
+        <link rel="next" href="../homework9/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Trajectory Planning Exercises - Plantilla para Documentación</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.2/css/all.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#trajectory-planning-exercises" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Plantilla para Documentación" class="md-header__button md-logo" aria-label="Plantilla para Documentación" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Plantilla para Documentación
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Trajectory Planning Exercises
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Plantilla para Documentación" class="md-nav__button md-logo" aria-label="Plantilla para Documentación" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Plantilla para Documentación
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentación del Proyecto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../activity1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROS2 Topics (Publisher and Subscriber)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../activity2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROS 2 Topics + Services (Reset Counter) | Publisher + Counter + SetBool Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../activity3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forward Kinematics using DH Parameters (UR5e and KUKA KR16)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comandos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Encabezados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ejemplo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 Ejemplo de Documentación del Proyecto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gitcmds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 Comandos básicos de Git (primeros pasos)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homework1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples of Robots by Morphology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homework2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transform Nomenclature
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homework3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forward Kinematics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homework4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Service + Custom Message (Battery and LED Panel)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homework5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROS Basics Capstone – Turtlesim Catch Them All
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homework7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IK and jacobian
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trajectory Planning Exercises
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trajectory Planning Exercises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-theoretical-basis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Theoretical basis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-exercise-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Exercise 1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Exercise 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graph-used-for-the-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graph used for the analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#point-by-point-interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Point-by-point interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-answer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final answer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-exercise-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Exercise 2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Exercise 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statement_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#velocity-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Velocity graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Result
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-exercise-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Exercise 3
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Exercise 3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statement_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-note" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important note
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision-criterion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision criterion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-the-result-is-trapezoidal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If the result is trapezoidal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-the-result-is-triangular" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If the result is triangular
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ready-to-use-substitution-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ready-to-use substitution template
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exercise-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Exercise 4
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Exercise 4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statement_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assumption-used-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assumption used here
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#velocity-law-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Velocity law used
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#position-by-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Position by integration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Position by integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-acceleration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: acceleration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-constant-velocity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: constant velocity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-deceleration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: deceleration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#position-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Position graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-exercise-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Exercise 5
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Exercise 5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statement_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-profile-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        a) Profile type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-computation-of-t_a-t_c-and-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        b) Computation of \( t_a \), \( t_c \), and \( T \)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-velocity-function-dot-qt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        c) Velocity function \( \dot q(t) \)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-position-function-qt-with-q_00" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        d) Position function \( q(t) \), with \( q_0=0 \)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="d) Position function \( q(t) \), with \( q_0=0 \)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-piecewise-position-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final piecewise position function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graphs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-exercise-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Exercise 6
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Exercise 6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statement_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-triangular-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        a) Triangular profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triangular-profile-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triangular-profile result
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triangular-velocity-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triangular velocity function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-trapezoidal-profile-with-t_a05-texts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        b) Trapezoidal profile with \( t_a=0.5\ \text{s} \)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trapezoidal-profile-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trapezoidal-profile result
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trapezoidal-velocity-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trapezoidal velocity function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-comparison-of-peak-acceleration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        c) Comparison of peak acceleration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-conclusion-for-exercise-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final conclusion for Exercise 6
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graphs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparative-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparative summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-resource-included-in-this-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Resource included in this package
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homework9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    URDF robots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-theoretical-basis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Theoretical basis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-exercise-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Exercise 1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Exercise 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graph-used-for-the-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graph used for the analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#point-by-point-interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Point-by-point interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-answer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final answer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-exercise-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Exercise 2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Exercise 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statement_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#velocity-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Velocity graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Result
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-exercise-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Exercise 3
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Exercise 3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statement_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-note" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important note
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision-criterion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision criterion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-the-result-is-trapezoidal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If the result is trapezoidal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-the-result-is-triangular" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If the result is triangular
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ready-to-use-substitution-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ready-to-use substitution template
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exercise-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Exercise 4
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Exercise 4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statement_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assumption-used-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assumption used here
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#velocity-law-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Velocity law used
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#position-by-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Position by integration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Position by integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-acceleration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: acceleration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-constant-velocity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: constant velocity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-deceleration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: deceleration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#position-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Position graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-exercise-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Exercise 5
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Exercise 5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statement_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-profile-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        a) Profile type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-computation-of-t_a-t_c-and-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        b) Computation of \( t_a \), \( t_c \), and \( T \)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-velocity-function-dot-qt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        c) Velocity function \( \dot q(t) \)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-position-function-qt-with-q_00" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        d) Position function \( q(t) \), with \( q_0=0 \)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="d) Position function \( q(t) \), with \( q_0=0 \)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-piecewise-position-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final piecewise position function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graphs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-exercise-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Exercise 6
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Exercise 6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statement_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-triangular-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        a) Triangular profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triangular-profile-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triangular-profile result
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triangular-velocity-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triangular velocity function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-trapezoidal-profile-with-t_a05-texts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        b) Trapezoidal profile with \( t_a=0.5\ \text{s} \)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trapezoidal-profile-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trapezoidal-profile result
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trapezoidal-velocity-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trapezoidal velocity function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-comparison-of-peak-acceleration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        c) Comparison of peak acceleration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-conclusion-for-exercise-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final conclusion for Exercise 6
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graphs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparative-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparative summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-resource-included-in-this-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Resource included in this package
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="trajectory-planning-exercises">Trajectory Planning Exercises</h1>
+<h2 id="1-overview">1. Overview</h2>
+<p>This document verifies the trajectory-planning exercises using the relationships between position, velocity, and acceleration, together with the standard trapezoidal and triangular velocity profiles.</p>
+<p>Two important clarifications are necessary before presenting the solutions:</p>
+<ol>
+<li>
+<p>In the material that was shared, the numerical data for <strong>Exercise 3(a)</strong> and <strong>Exercise 3(b)</strong> are not visible.<br />
+   Therefore, that exercise is solved with the <strong>exact decision criterion and substitution procedure</strong>, but it cannot be closed numerically without those missing values.</p>
+</li>
+<li>
+<p>For <strong>Exercise 4</strong>, no independent velocity graph was visible in the shared page.<br />
+   To keep the solution consistent and complete, the corresponding position sketch is built from the <strong>trapezoidal velocity graph of Exercise 2</strong>, which is the only explicit velocity graph available.</p>
+</li>
+</ol>
+<hr />
+<h2 id="2-theoretical-basis">2. Theoretical basis</h2>
+<p>For any joint trajectory:</p>
+<div class="arithmatex">\[
+v(t) = \dot{q}(t), \qquad a(t) = \dot{v}(t) = \ddot{q}(t)
+\]</div>
+<p>This implies:</p>
+<ul>
+<li>the <strong>slope of the position graph</strong> is the velocity,</li>
+<li>the <strong>slope of the velocity graph</strong> is the acceleration,</li>
+<li>the <strong>area under the velocity-time graph</strong> is the displacement.</li>
+</ul>
+<p>For a symmetric trapezoidal velocity profile:</p>
+<div class="arithmatex">\[
+q_a = \frac{v_{\max}^2}{2a_{\max}}
+\]</div>
+<div class="arithmatex">\[
+q_{\min} = q_a + q_d = \frac{v_{\max}^2}{a_{\max}}
+\]</div>
+<p>where <span class="arithmatex">\( q_{\min} \)</span> is the minimum distance required to accelerate up to <span class="arithmatex">\( v_{\max} \)</span> and then decelerate back to zero.</p>
+<p>Therefore:</p>
+<ul>
+<li>if <span class="arithmatex">\( \Delta q &gt; q_{\min} \)</span>, the motion is <strong>trapezoidal</strong>,</li>
+<li>if <span class="arithmatex">\( \Delta q = q_{\min} \)</span>, it is the <strong>limit case with zero cruise</strong>,</li>
+<li>if <span class="arithmatex">\( \Delta q &lt; q_{\min} \)</span>, the motion is <strong>triangular</strong>.</li>
+</ul>
+<hr />
+<h2 id="3-exercise-1">3. Exercise 1</h2>
+<h3 id="statement">Statement</h3>
+<p>Given a position graph, identify:</p>
+<ul>
+<li>where velocity is zero,</li>
+<li>where velocity is maximum,</li>
+<li>where acceleration is positive or negative.</li>
+</ul>
+<h3 id="graph-used-for-the-analysis">Graph used for the analysis</h3>
+<p><img alt="Exercise 1 position graph" src="../recursos/imgs/homework8/exercise1_position_graph.png" /></p>
+<h3 id="procedure">Procedure</h3>
+<p>From a position graph:</p>
+<ul>
+<li><span class="arithmatex">\( v(t) \)</span> is the slope of <span class="arithmatex">\( q(t) \)</span>,</li>
+<li>positive slope means positive velocity,</li>
+<li>zero slope means zero velocity,</li>
+<li>increasing slope means positive acceleration,</li>
+<li>decreasing slope means negative acceleration.</li>
+</ul>
+<h3 id="point-by-point-interpretation">Point-by-point interpretation</h3>
+<table>
+<thead>
+<tr>
+<th>Point</th>
+<th>Graph behavior</th>
+<th style="text-align: right;">Velocity</th>
+<th style="text-align: right;">Acceleration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Horizontal segment</td>
+<td style="text-align: right;"><span class="arithmatex">\(0\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(0\)</span></td>
+</tr>
+<tr>
+<td>B</td>
+<td>Curve rising with increasing slope</td>
+<td style="text-align: right;"><span class="arithmatex">\(&gt;0\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(&gt;0\)</span></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Steep straight segment</td>
+<td style="text-align: right;">maximum positive</td>
+<td style="text-align: right;"><span class="arithmatex">\(0\)</span></td>
+</tr>
+<tr>
+<td>D</td>
+<td>Curve still rising, but flattening</td>
+<td style="text-align: right;"><span class="arithmatex">\(&gt;0\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(&lt;0\)</span></td>
+</tr>
+<tr>
+<td>E</td>
+<td>Horizontal plateau</td>
+<td style="text-align: right;"><span class="arithmatex">\(0\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(0\)</span></td>
+</tr>
+<tr>
+<td>F</td>
+<td>Straight descending segment</td>
+<td style="text-align: right;"><span class="arithmatex">\(&lt;0\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(0\)</span></td>
+</tr>
+<tr>
+<td>G</td>
+<td>Horizontal segment</td>
+<td style="text-align: right;"><span class="arithmatex">\(0\)</span></td>
+<td style="text-align: right;"><span class="arithmatex">\(0\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="final-answer">Final answer</h3>
+<ul>
+<li><strong>Velocity is zero</strong> at <strong>A, E, and G</strong>.</li>
+<li><strong>Maximum velocity</strong> occurs at <strong>C</strong>, because that is where the positive slope is greatest.</li>
+<li><strong>Positive acceleration</strong> occurs around <strong>B</strong>, because the slope is increasing.</li>
+<li><strong>Negative acceleration</strong> occurs around <strong>D</strong>, because the slope is decreasing.</li>
+<li>At <strong>F</strong> the velocity is negative and approximately constant, so the acceleration there is approximately zero.</li>
+</ul>
+<hr />
+<h2 id="4-exercise-2">4. Exercise 2</h2>
+<h3 id="statement_1">Statement</h3>
+<p>Given a trapezoidal velocity graph, compute the total displacement from the area under the curve.</p>
+<h3 id="velocity-graph">Velocity graph</h3>
+<p><img alt="Exercise 2 velocity graph" src="../recursos/imgs/homework8/exercise2_velocity_area.png" /></p>
+<h3 id="known-data">Known data</h3>
+<div class="arithmatex">\[
+v_{\max} = 0.8\ \text{rad/s}, \qquad
+t_a = 0.5\ \text{s}, \qquad
+t_c = 2.0\ \text{s}, \qquad
+t_d = 0.5\ \text{s}
+\]</div>
+<h3 id="procedure_1">Procedure</h3>
+<p>The total displacement is the sum of:</p>
+<ol>
+<li>the area of the acceleration triangle,</li>
+<li>the area of the constant-velocity rectangle,</li>
+<li>the area of the deceleration triangle.</li>
+</ol>
+<p>So,</p>
+<div class="arithmatex">\[
+\Delta q
+=
+\frac{1}{2} t_a v_{\max}
++
+t_c v_{\max}
++
+\frac{1}{2} t_d v_{\max}
+\]</div>
+<p>Substituting the numerical values:</p>
+<div class="arithmatex">\[
+\Delta q
+=
+\frac{1}{2}(0.5)(0.8)
++
+(2.0)(0.8)
++
+\frac{1}{2}(0.5)(0.8)
+\]</div>
+<div class="arithmatex">\[
+\Delta q = 0.2 + 1.6 + 0.2 = 2.0\ \text{rad}
+\]</div>
+<h3 id="result">Result</h3>
+<div class="arithmatex">\[
+\boxed{\Delta q = 2.0\ \text{rad}}
+\]</div>
+<hr />
+<h2 id="5-exercise-3">5. Exercise 3</h2>
+<h3 id="statement_2">Statement</h3>
+<p>Given <span class="arithmatex">\( \Delta q \)</span>, <span class="arithmatex">\( v_{\max} \)</span>, and <span class="arithmatex">\( a_{\max} \)</span>, determine whether the motion is trapezoidal or triangular.</p>
+<h3 id="important-note">Important note</h3>
+<p>The numerical values for parts <strong>(a)</strong> and <strong>(b)</strong> are not visible in the material that was shared, so this exercise cannot be completed numerically without inventing data.<br />
+What can be done correctly is to leave the exact decision rule and substitution sequence ready.</p>
+<h3 id="decision-criterion">Decision criterion</h3>
+<p>First compute the minimum distance needed to reach <span class="arithmatex">\( v_{\max} \)</span>:</p>
+<div class="arithmatex">\[
+q_{\min} = \frac{v_{\max}^2}{a_{\max}}
+\]</div>
+<p>Then compare <span class="arithmatex">\( \Delta q \)</span> against <span class="arithmatex">\( q_{\min} \)</span>:</p>
+<ul>
+<li>if <span class="arithmatex">\( \Delta q &gt; q_{\min} \)</span>, the profile is <strong>trapezoidal</strong>,</li>
+<li>if <span class="arithmatex">\( \Delta q = q_{\min} \)</span>, the cruise time is zero,</li>
+<li>if <span class="arithmatex">\( \Delta q &lt; q_{\min} \)</span>, the profile is <strong>triangular</strong>.</li>
+</ul>
+<h3 id="if-the-result-is-trapezoidal">If the result is trapezoidal</h3>
+<div class="arithmatex">\[
+t_a = \frac{v_{\max}}{a_{\max}}
+\]</div>
+<div class="arithmatex">\[
+t_c = \frac{\Delta q}{v_{\max}} - \frac{v_{\max}}{a_{\max}}
+\]</div>
+<div class="arithmatex">\[
+T = 2t_a + t_c
+\]</div>
+<h3 id="if-the-result-is-triangular">If the result is triangular</h3>
+<p>The peak velocity is not <span class="arithmatex">\( v_{\max} \)</span>, but the reachable value <span class="arithmatex">\( v_p \)</span>:</p>
+<div class="arithmatex">\[
+v_p = \sqrt{\Delta q\,a_{\max}}
+\]</div>
+<div class="arithmatex">\[
+t_a = \frac{v_p}{a_{\max}}
+\]</div>
+<div class="arithmatex">\[
+T = 2t_a
+\]</div>
+<h3 id="ready-to-use-substitution-template">Ready-to-use substitution template</h3>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Minimum distance to reach <span class="arithmatex">\(v_{\max}\)</span></td>
+<td><span class="arithmatex">\( q_{\min} = \dfrac{v_{\max}^2}{a_{\max}} \)</span></td>
+</tr>
+<tr>
+<td>Comparison</td>
+<td>compare <span class="arithmatex">\( \Delta q \)</span> with <span class="arithmatex">\( q_{\min} \)</span></td>
+</tr>
+<tr>
+<td>Trapezoidal acceleration time</td>
+<td><span class="arithmatex">\( t_a = \dfrac{v_{\max}}{a_{\max}} \)</span></td>
+</tr>
+<tr>
+<td>Trapezoidal cruise time</td>
+<td><span class="arithmatex">\( t_c = \dfrac{\Delta q}{v_{\max}} - \dfrac{v_{\max}}{a_{\max}} \)</span></td>
+</tr>
+<tr>
+<td>Triangular peak velocity</td>
+<td><span class="arithmatex">\( v_p = \sqrt{\Delta q a_{\max}} \)</span></td>
+</tr>
+<tr>
+<td>Triangular total time</td>
+<td><span class="arithmatex">\( T = 2\dfrac{v_p}{a_{\max}} \)</span></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-exercise-4">6. Exercise 4</h2>
+<h3 id="statement_3">Statement</h3>
+<p>Sketch the position graph corresponding to a given velocity graph.</p>
+<h3 id="assumption-used-here">Assumption used here</h3>
+<p>Because no separate Exercise 4 velocity graph was visible in the shared material, the position graph below is obtained from the trapezoidal velocity graph of Exercise 2.</p>
+<h3 id="velocity-law-used">Velocity law used</h3>
+<p>From Exercise 2:</p>
+<div class="arithmatex">\[
+v(t)=
+\begin{cases}
+1.6t, &amp; 0 \le t \le 0.5 \\
+0.8, &amp; 0.5 &lt; t \le 2.5 \\
+0.8 - 1.6(t-2.5), &amp; 2.5 &lt; t \le 3
+\end{cases}
+\]</div>
+<h3 id="position-by-integration">Position by integration</h3>
+<p>Assuming <span class="arithmatex">\( q(0)=0 \)</span>,</p>
+<h4 id="phase-1-acceleration">Phase 1: acceleration</h4>
+<div class="arithmatex">\[
+q(t)=\int 1.6t\,dt = 0.8t^2,
+\qquad 0 \le t \le 0.5
+\]</div>
+<p>At <span class="arithmatex">\( t=0.5 \)</span>,</p>
+<div class="arithmatex">\[
+q(0.5)=0.8(0.5)^2=0.2\ \text{rad}
+\]</div>
+<h4 id="phase-2-constant-velocity">Phase 2: constant velocity</h4>
+<div class="arithmatex">\[
+q(t)=0.2+0.8(t-0.5),
+\qquad 0.5 &lt; t \le 2.5
+\]</div>
+<p>This can also be written as</p>
+<div class="arithmatex">\[
+q(t)=0.8t-0.2
+\]</div>
+<p>At <span class="arithmatex">\( t=2.5 \)</span>,</p>
+<div class="arithmatex">\[
+q(2.5)=0.2+0.8(2.0)=1.8\ \text{rad}
+\]</div>
+<h4 id="phase-3-deceleration">Phase 3: deceleration</h4>
+<div class="arithmatex">\[
+q(t)=1.8 + 0.8(t-2.5) - 0.8(t-2.5)^2,
+\qquad 2.5 &lt; t \le 3
+\]</div>
+<p>At <span class="arithmatex">\( t=3 \)</span>,</p>
+<div class="arithmatex">\[
+q(3)=2.0\ \text{rad}
+\]</div>
+<h3 id="position-graph">Position graph</h3>
+<p><img alt="Exercise 4 position graph" src="../recursos/imgs/homework8/exercise4_position_from_velocity.png" /></p>
+<h3 id="interpretation">Interpretation</h3>
+<p>The resulting position graph has the expected shape:</p>
+<ul>
+<li><strong>quadratic increasing</strong> during acceleration,</li>
+<li><strong>linear</strong> during constant velocity,</li>
+<li><strong>quadratic increasing but flattening</strong> during deceleration.</li>
+</ul>
+<hr />
+<h2 id="7-exercise-5">7. Exercise 5</h2>
+<h3 id="statement_4">Statement</h3>
+<p>A joint must move <span class="arithmatex">\( \Delta q = 2\ \text{rad} \)</span> with <span class="arithmatex">\( v_{\max}=1\ \text{rad/s} \)</span> and <span class="arithmatex">\( a_{\max}=4\ \text{rad/s}^2 \)</span>.</p>
+<p>Tasks:</p>
+<p>a) Determine whether the motion is trapezoidal or triangular.<br />
+b) Compute <span class="arithmatex">\( t_a \)</span>, <span class="arithmatex">\( t_c \)</span>, and <span class="arithmatex">\( T \)</span>.<br />
+c) Write the velocity function <span class="arithmatex">\( \dot q(t) \)</span> for each phase.<br />
+d) Write the position function <span class="arithmatex">\( q(t) \)</span> for each phase, assuming <span class="arithmatex">\( q_0=0 \)</span>.</p>
+<h3 id="a-profile-type">a) Profile type</h3>
+<p>First compute the minimum distance required to reach <span class="arithmatex">\( v_{\max} \)</span>:</p>
+<div class="arithmatex">\[
+q_{\min} = \frac{v_{\max}^2}{a_{\max}}
+= \frac{1^2}{4}
+= 0.25\ \text{rad}
+\]</div>
+<p>Since</p>
+<div class="arithmatex">\[
+\Delta q = 2\ \text{rad} &gt; 0.25\ \text{rad}
+\]</div>
+<p>the motion <strong>does reach</strong> the commanded maximum velocity.</p>
+<p>Therefore,</p>
+<div class="arithmatex">\[
+\boxed{\text{The profile is trapezoidal}}
+\]</div>
+<h3 id="b-computation-of-t_a-t_c-and-t">b) Computation of <span class="arithmatex">\( t_a \)</span>, <span class="arithmatex">\( t_c \)</span>, and <span class="arithmatex">\( T \)</span></h3>
+<p>Acceleration time:</p>
+<div class="arithmatex">\[
+t_a = \frac{v_{\max}}{a_{\max}}
+= \frac{1}{4}
+= 0.25\ \text{s}
+\]</div>
+<p>Cruise time:</p>
+<div class="arithmatex">\[
+t_c = \frac{\Delta q}{v_{\max}} - \frac{v_{\max}}{a_{\max}}
+= \frac{2}{1} - \frac{1}{4}
+= 1.75\ \text{s}
+\]</div>
+<p>Total time:</p>
+<div class="arithmatex">\[
+T = 2t_a + t_c = 2(0.25) + 1.75 = 2.25\ \text{s}
+\]</div>
+<h3 id="results">Results</h3>
+<div class="arithmatex">\[
+\boxed{t_a = 0.25\ \text{s}}, \qquad
+\boxed{t_c = 1.75\ \text{s}}, \qquad
+\boxed{T = 2.25\ \text{s}}
+\]</div>
+<h3 id="c-velocity-function-dot-qt">c) Velocity function <span class="arithmatex">\( \dot q(t) \)</span></h3>
+<p>The deceleration phase starts at</p>
+<div class="arithmatex">\[
+t_b = t_a + t_c = 0.25 + 1.75 = 2.0\ \text{s}
+\]</div>
+<p>Therefore,</p>
+<div class="arithmatex">\[
+\dot q(t)=
+\begin{cases}
+4t, &amp; 0 \le t \le 0.25 \\
+1, &amp; 0.25 &lt; t \le 2.0 \\
+1 - 4(t-2.0), &amp; 2.0 &lt; t \le 2.25
+\end{cases}
+\]</div>
+<h3 id="d-position-function-qt-with-q_00">d) Position function <span class="arithmatex">\( q(t) \)</span>, with <span class="arithmatex">\( q_0=0 \)</span></h3>
+<h4 id="phase-1">Phase 1</h4>
+<div class="arithmatex">\[
+q(t)=\int_0^t 4\tau\,d\tau = 2t^2,
+\qquad 0 \le t \le 0.25
+\]</div>
+<p>At the end of acceleration:</p>
+<div class="arithmatex">\[
+q(0.25)=2(0.25)^2=0.125\ \text{rad}
+\]</div>
+<h4 id="phase-2">Phase 2</h4>
+<div class="arithmatex">\[
+q(t)=0.125 + 1(t-0.25),
+\qquad 0.25 &lt; t \le 2.0
+\]</div>
+<p>Equivalent simplified form:</p>
+<div class="arithmatex">\[
+q(t)=t-0.125
+\]</div>
+<p>At the start of deceleration:</p>
+<div class="arithmatex">\[
+q(2.0)=2.0-0.125=1.875\ \text{rad}
+\]</div>
+<h4 id="phase-3">Phase 3</h4>
+<div class="arithmatex">\[
+q(t)=1.875 + (t-2.0) - 2(t-2.0)^2,
+\qquad 2.0 &lt; t \le 2.25
+\]</div>
+<h3 id="final-piecewise-position-function">Final piecewise position function</h3>
+<div class="arithmatex">\[
+q(t)=
+\begin{cases}
+2t^2, &amp; 0 \le t \le 0.25 \\
+t-0.125, &amp; 0.25 &lt; t \le 2.0 \\
+1.875 + (t-2.0) - 2(t-2.0)^2, &amp; 2.0 &lt; t \le 2.25
+\end{cases}
+\]</div>
+<h3 id="graphs">Graphs</h3>
+<p><img alt="Exercise 5 velocity profile" src="../recursos/imgs/homework8/exercise5_velocity_profile.png" /></p>
+<p><img alt="Exercise 5 position profile" src="../recursos/imgs/homework8/exercise5_position_profile.png" /></p>
+<h3 id="verification">Verification</h3>
+<p>At the final time,</p>
+<div class="arithmatex">\[
+q(2.25)=1.875 + 0.25 - 2(0.25)^2 = 2.0\ \text{rad}
+\]</div>
+<p>so the position function is consistent with the required displacement.</p>
+<hr />
+<h2 id="8-exercise-6">8. Exercise 6</h2>
+<h3 id="statement_5">Statement</h3>
+<p>A joint must move <span class="arithmatex">\( \Delta q = 3\ \text{rad} \)</span> in exactly <span class="arithmatex">\( T=3\ \text{s} \)</span>.</p>
+<p>Tasks:</p>
+<p>a) Design a triangular velocity profile. Compute <span class="arithmatex">\( v_p \)</span> and <span class="arithmatex">\( a \)</span>.<br />
+b) Design a trapezoidal velocity profile with <span class="arithmatex">\( t_a=0.5\ \text{s} \)</span>. Compute <span class="arithmatex">\( v_{\max} \)</span> and <span class="arithmatex">\( a_{\max} \)</span>.<br />
+c) Compare the peak acceleration of both profiles and identify which one is gentler on the motor.</p>
+<h3 id="a-triangular-profile">a) Triangular profile</h3>
+<p>For a symmetric triangular velocity profile,</p>
+<div class="arithmatex">\[
+\Delta q = \frac{1}{2} T v_p
+\]</div>
+<p>So,</p>
+<div class="arithmatex">\[
+3 = \frac{1}{2}(3)v_p
+\quad \Longrightarrow \quad
+v_p = 2\ \text{rad/s}
+\]</div>
+<p>Since the profile is symmetric,</p>
+<div class="arithmatex">\[
+t_a = \frac{T}{2} = 1.5\ \text{s}
+\]</div>
+<p>The required acceleration is</p>
+<div class="arithmatex">\[
+a = \frac{v_p}{t_a}
+= \frac{2}{1.5}
+= \frac{4}{3}
+\approx 1.333\ \text{rad/s}^2
+\]</div>
+<h3 id="triangular-profile-result">Triangular-profile result</h3>
+<div class="arithmatex">\[
+\boxed{v_p = 2\ \text{rad/s}}, \qquad
+\boxed{a = \frac{4}{3}\ \text{rad/s}^2 \approx 1.333\ \text{rad/s}^2}
+\]</div>
+<h3 id="triangular-velocity-function">Triangular velocity function</h3>
+<div class="arithmatex">\[
+v_{\text{tri}}(t)=
+\begin{cases}
+\frac{4}{3}t, &amp; 0 \le t \le 1.5 \\
+2 - \frac{4}{3}(t-1.5), &amp; 1.5 &lt; t \le 3
+\end{cases}
+\]</div>
+<h3 id="b-trapezoidal-profile-with-t_a05-texts">b) Trapezoidal profile with <span class="arithmatex">\( t_a=0.5\ \text{s} \)</span></h3>
+<p>Because the total time is fixed at <span class="arithmatex">\( 3\ \text{s} \)</span>,</p>
+<div class="arithmatex">\[
+t_c = T - 2t_a = 3 - 2(0.5) = 2.0\ \text{s}
+\]</div>
+<p>For a symmetric trapezoidal profile:</p>
+<div class="arithmatex">\[
+\Delta q = v_{\max}(t_c + t_a)
+\]</div>
+<p>Then,</p>
+<div class="arithmatex">\[
+3 = v_{\max}(2.0 + 0.5)
+= 2.5\,v_{\max}
+\]</div>
+<div class="arithmatex">\[
+v_{\max} = \frac{3}{2.5} = 1.2\ \text{rad/s}
+\]</div>
+<p>Now compute the acceleration:</p>
+<div class="arithmatex">\[
+a_{\max}=\frac{v_{\max}}{t_a}
+=\frac{1.2}{0.5}
+=2.4\ \text{rad/s}^2
+\]</div>
+<h3 id="trapezoidal-profile-result">Trapezoidal-profile result</h3>
+<div class="arithmatex">\[
+\boxed{v_{\max}=1.2\ \text{rad/s}}, \qquad
+\boxed{a_{\max}=2.4\ \text{rad/s}^2}
+\]</div>
+<h3 id="trapezoidal-velocity-function">Trapezoidal velocity function</h3>
+<div class="arithmatex">\[
+v_{\text{trap}}(t)=
+\begin{cases}
+2.4t, &amp; 0 \le t \le 0.5 \\
+1.2, &amp; 0.5 &lt; t \le 2.5 \\
+1.2 - 2.4(t-2.5), &amp; 2.5 &lt; t \le 3
+\end{cases}
+\]</div>
+<h3 id="c-comparison-of-peak-acceleration">c) Comparison of peak acceleration</h3>
+<p>Triangular profile:</p>
+<div class="arithmatex">\[
+a_{\text{peak,tri}} = \frac{4}{3} \approx 1.333\ \text{rad/s}^2
+\]</div>
+<p>Trapezoidal profile:</p>
+<div class="arithmatex">\[
+a_{\text{peak,trap}} = 2.4\ \text{rad/s}^2
+\]</div>
+<p>Since</p>
+<div class="arithmatex">\[
+1.333 &lt; 2.4
+\]</div>
+<p>the triangular profile has the smaller peak acceleration.</p>
+<h3 id="final-conclusion-for-exercise-6">Final conclusion for Exercise 6</h3>
+<div class="arithmatex">\[
+\boxed{\text{The triangular profile is gentler on the motor}}
+\]</div>
+<p>because lower peak acceleration generally implies lower peak torque demand, lower mechanical stress, and smaller dynamic shock.</p>
+<h3 id="graphs_1">Graphs</h3>
+<p><img alt="Exercise 6 velocity comparison" src="../recursos/imgs/homework8/exercise6_velocity_comparison.png" /></p>
+<p><img alt="Exercise 6 acceleration comparison" src="../recursos/imgs/homework8/exercise6_acceleration_comparison.png" /></p>
+<h3 id="comparative-summary">Comparative summary</h3>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th style="text-align: right;"><span class="arithmatex">\(t_a\)</span> [s]</th>
+<th style="text-align: right;"><span class="arithmatex">\(t_c\)</span> [s]</th>
+<th style="text-align: right;">Peak velocity [rad/s]</th>
+<th style="text-align: right;">Peak acceleration [rad/s²]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Triangular</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">1.333</td>
+</tr>
+<tr>
+<td>Trapezoidal</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">2.4</td>
+</tr>
+</tbody>
+</table>
+<h2 id="9-resource-included-in-this-package">9. Resource included in this package</h2>
+<p>The package also includes a Python script that generates the figures used in this document:</p>
+<ul>
+<li><code>docs/recursos/imgs/homework8/plot_trajectory_exercises.py</code></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.tooltips"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
